@@ -18,38 +18,14 @@
 	
 	</div>
 
-	<form id="forms" method="POST" enctype="multipart/form-data">
-	  Select an image to upload:
+	<form action="/upload" enctype="multipart/form-data" method="post">
+	  Select an image/file to upload:
 	  <input type="file" name="image" id="file"> 
 	  <input type="submit" value="Upload Image">
 	</form>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-      var file;
-      $('#file').on('change', function(e){
-        file= e.target.files[0];
-      });
-      $('form').on('submit', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        var data = new FormData();
-        data.append('file', file);
-        $.ajax({
-          url: window.location.origin + '/uploads',
-          type: 'POST',
-          data: data,
-          cache: false,
-          processData: false,
-          contentType: false,
-          success: function(data){
-          	console.log(data);
-            alert('FILE SIZE: ' + data.size);
-          },
-          crossDomain: true
-        });
-      });
-  });
+
 </script>
 </body>
 </html>

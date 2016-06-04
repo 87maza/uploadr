@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
+    "formidable": "^1.0.17",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "serve-favicon": "^2.3.0"
