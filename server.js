@@ -1,5 +1,4 @@
 var express  = require('express');
-var morgan = require('morgan');
 var fs = require('fs');
 var favicon = require('serve-favicon');
 var app = express();
@@ -9,10 +8,7 @@ var util = require('util');
 var http = require('http');
 var fsx = require('fs-extra')
 
-
 app.use(favicon(__dirname + '/android-icon-192x192.png'));
-
-app.use(morgan('short'));
 
 http.createServer(function(req, res) {
   if (req.url == '/uploads' && req.method.toLowerCase() == 'post') {
