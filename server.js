@@ -1,30 +1,24 @@
-var express  = require('express');
-var morgan = require('morgan');
-var fs = require('fs');
-var favicon = require('serve-favicon');
-var app = express();
-var router = express.Router();
-var formidable = require('formidable');
-var util = require('util');
-var http = require('http');
 
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' }).single('File')
+const path = require('path')
+const express = require('express');
+const app = express();
 
-app.use(favicon(__dirname + '/android-icon-192x192.png'));
+app.use('/', express.static(path.join(__dirname, '/public')));
 
-app.use(morgan('short'));
-
-http.createServer(function(req, res) {
-  if (req.url == '/uploads' && req.method.toLowerCase() == 'post') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-        console.log(fields)
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('File Metadata:\n');
-      res.end(util.inspect({files: files}));
+app.post('/',function(req,res){
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.json(req.file);
     });
-    
-    return;
-  }
-  res.writeHead(200, {'content-type': 'text/html'});
-  fs.createReadStream(__dirname + '/index.html').pipe(res);
-}).listen(8080);
+});
+
+var port = process.env.PORT || 8080;
+app.listen(port,  function () {
+  console.log('Runnin on port ' + port );
+});
+
+
